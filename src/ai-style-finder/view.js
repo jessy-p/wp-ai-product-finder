@@ -14,7 +14,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		const searchButton = block.querySelector('.search-button');
 		const chips = block.querySelectorAll('.suggestion-chip');
 		
-		// Function to perform search
 		function performSearch() {
 			const query = searchInput.value.trim();
 			if (query) {
@@ -25,19 +24,32 @@ document.addEventListener('DOMContentLoaded', function() {
 				searchInput.value = 'Searching...';
 				searchInput.style.color = '#999';
 
-				console.log('Searching for:', query);
+				console.log('Calling API for:', query);
 				
-				// will replace with API call
-				setTimeout(() => {
+				fetch('/wp-json/ai-style-finder/v1/search', {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					},
+					body: JSON.stringify({
+						query: query
+					})
+				})
+				.then(response => response.json())
+				.then(data => {
+					console.log('API Response:', data);
+				})
+				.catch(error => {
+					console.error('API Error:', error);
+				})
+				.finally(() => {
 					// Reset UI state
 					searchButton.disabled = false;
 					searchButton.textContent = '🔍';
 					searchInput.disabled = false;
 					searchInput.value = query;
 					searchInput.style.color = '';
-					
-					console.log('Search complete for "' + query + '"');
-				}, 1000);
+				});
 			}
 		}
 		

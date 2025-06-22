@@ -33,6 +33,35 @@ function create_block_ai_style_finder_block_init()
 }
 add_action('init', 'create_block_ai_style_finder_block_init');
 
+/**
+ * Register REST API endpoint for AI search
+ */
+function register_ai_style_finder_api() {
+	register_rest_route('ai-style-finder/v1', '/search', array(
+		'methods' => 'POST',
+		'callback' => 'handle_ai_search_request',
+	));
+}
+add_action('rest_api_init', 'register_ai_style_finder_api');
+
+/**
+ * Handle AI search API request
+ */
+function handle_ai_search_request($request) {
+	$query = $request->get_param('query');
+	
+	// Basic validation
+	if (empty($query)) {
+		return new WP_Error('missing_query', 'Query parameter is required', array('status' => 400));
+	}
+	
+	// Return simple success response
+	return array(
+		'success' => true,
+		'query' => $query,
+		'message' => 'Search API endpoint working! Received: ' . $query
+	);
+}
 
 /**
  * Server-side render function for AI Style Finder block
