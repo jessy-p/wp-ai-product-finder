@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       AI Style Finder
+ * Plugin Name:       AI Product Finder
  * Description:       AI-powered Product Search
  * Version:           0.1.0
  * Requires at least: 6.7
@@ -8,7 +8,7 @@
  * Author:            The WordPress Contributors
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       ai-style-finder
+ * Text Domain:       ai-product-finder
  *
  * @package CreateBlock
  */
@@ -21,27 +21,27 @@ require_once __DIR__ . '/includes/class-pinecone-service.php';
 require_once __DIR__ . '/includes/class-openai-service.php';
 
 /**
- * Initialize AI Style Finder block registration
+ * Initialize AI Product Finder block registration
  */
-function create_block_ai_style_finder_block_init() {
+function create_block_ai_product_finder_block_init() {
 	$manifest_data = include __DIR__ . '/build/blocks-manifest.php';
 	foreach ( array_keys( $manifest_data ) as $block_type ) {
 		register_block_type(
 			__DIR__ . "/build/{$block_type}",
 			array(
-				'render_callback' => 'render_ai_style_finder_block',
+				'render_callback' => 'render_ai_product_finder_block',
 			)
 		);
 	}
 }
-add_action( 'init', 'create_block_ai_style_finder_block_init' );
+add_action( 'init', 'create_block_ai_product_finder_block_init' );
 
 /**
  * Register REST API endpoint for AI search
  */
-function register_ai_style_finder_api() {
+function register_ai_product_finder_api() {
 	register_rest_route(
-		'ai-style-finder/v1',
+		'ai-product-finder/v1',
 		'/search',
 		array(
 			'methods'  => 'POST',
@@ -49,7 +49,7 @@ function register_ai_style_finder_api() {
 		)
 	);
 }
-add_action( 'rest_api_init', 'register_ai_style_finder_api' );
+add_action( 'rest_api_init', 'register_ai_product_finder_api' );
 
 /**
  * Handle AI search API request
@@ -117,19 +117,19 @@ function handle_ai_search_request( $request ) {
 }
 
 /**
- * Server-side render function for AI Style Finder block
+ * Server-side render function for AI Product Finder block
  *
  * @param array  $attributes Block attributes (unused).
  * @param string $content    Block content (unused).
  *
  * @return string Rendered block HTML.
  */
-function render_ai_style_finder_block( $attributes, $content ) {
-	$block_title = isset( $attributes['blockTitle'] ) ? $attributes['blockTitle'] : 'AI Style Finder';
+function render_ai_product_finder_block( $attributes, $content ) {
+	$block_title = isset( $attributes['blockTitle'] ) ? $attributes['blockTitle'] : 'AI Product Finder';
 	
-	return '<div class="wp-block-create-block-ai-style-finder">
-		<h3 class="ai-style-finder-title">' . wp_kses_post( $block_title ) . '</h3>
-		<div class="ai-style-finder-search">
+	return '<div class="wp-block-create-block-ai-product-finder">
+		<h3 class="ai-product-finder-title">' . wp_kses_post( $block_title ) . '</h3>
+		<div class="ai-product-finder-search">
 			<div class="search-input-container">
 				<input 
 					type="text" 

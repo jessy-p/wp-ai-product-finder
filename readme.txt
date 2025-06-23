@@ -1,4 +1,4 @@
-=== AI Style Finder ===
+=== AI Product Finder ===
 Contributors:      The WordPress Contributors
 Tags:              block, ai, search, woocommerce, semantic, vector, ecommerce
 Tested up to:      6.7
@@ -12,7 +12,7 @@ AI-powered semantic product search block that uses vector embeddings to find pro
 
 == Description ==
 
-AI Style Finder is a demonstration Gutenberg block showcasing AI-powered e-commerce product search capabilities using vector embeddings and large language models.
+AI Product Finder is a demonstration Gutenberg block showcasing AI-powered e-commerce product search capabilities using vector embeddings and large language models.
 Instead of traditional keyword matching, customers can describe what they're looking for and get relevant product recommendations using semantic search using Pinecone vector database.
 It integrates with LLM to help customers understand how the matched products match their needs.
 
@@ -29,17 +29,17 @@ It integrates with LLM to help customers understand how the matched products mat
 
 **Basic Installation:**
 
-1. Upload the plugin files to the `/wp-content/plugins/ai-style-finder` directory, or install the plugin through the WordPress plugins screen directly
+1. Upload the plugin files to the `/wp-content/plugins/ai-product-finder` directory, or install the plugin through the WordPress plugins screen directly
 2. Activate the plugin through the 'Plugins' screen in WordPress
-3. Add the AI Style Finder block to any page or post using the Gutenberg editor
+3. Add the AI Product Finder block to any page or post using the Gutenberg editor
 
 **Configuration:**
 
 1. Add your API keys and Pinecone Index URL to wp-config.php:
    ```
-   define('AI_STYLE_FINDER_PINECONE_API_KEY', 'your-pinecone-api-key');
-   define('AI_STYLE_FINDER_PINECONE_INDEX_URL', 'your-pinecone-index-url');
-   define('AI_STYLE_FINDER_OPENAI_API_KEY', 'your-openai-api-key');
+   define('AI_PRODUCT_FINDER_PINECONE_API_KEY', 'your-pinecone-api-key');
+   define('AI_PRODUCT_FINDER_PINECONE_INDEX_URL', 'your-pinecone-index-url');
+   define('AI_PRODUCT_FINDER_OPENAI_API_KEY', 'your-openai-api-key');
    ```
 
 2. Ensure your WooCommerce products have SKUs that match your Pinecone vector database entries

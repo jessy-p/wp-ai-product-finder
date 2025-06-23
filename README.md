@@ -1,12 +1,12 @@
-# AI Style Finder
+# AI Product Finder
 
 A demonstration WordPress Gutenberg block showcasing AI-powered e-commerce product search using vector embeddings and natural language processing.
 
-![AI Style Finder Demo](screenshot.png)
+![AI Product Finder Demo](screenshot.png)
 
 ## Overview
 
-AI Style Finder transforms product discovery by enabling customers to search using natural language descriptions like "cozy hoodie for winter" instead of traditional keyword matching. The plugin demonstrates modern AI/ML integration patterns in WordPress using vector similarity search and large language models.
+AI Product Finder transforms product discovery by enabling customers to search using natural language descriptions like "cozy hoodie for winter" instead of traditional keyword matching. The plugin demonstrates modern AI/ML integration patterns in WordPress using vector similarity search and large language models.
 
 ## How it Works
 
@@ -61,7 +61,7 @@ $openai->explain_matches($query, $products);
 * **Block Attributes & Controls** - Editable block title using RichText component.
 
 * **WordPress REST API Integration**
-   - Custom namespace endpoint `POST /wp-json/ai-style-finder/v1/search`.
+   - Custom namespace endpoint `POST /wp-json/ai-product-finder/v1/search`.
    - Structured JSON responses with search results and AI explanations.
    - Input validation and WP_Error handling.
 

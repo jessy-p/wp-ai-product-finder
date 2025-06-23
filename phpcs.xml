@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<ruleset name="AI Style Finder">
-    <description>WordPress Coding Standards for AI Style Finder</description>
+<ruleset name="AI Product Finder">
+    <description>WordPress Coding Standards for AI Product Finder</description>
     
     <!-- Use WordPress Coding Standards with Documentation -->
     <rule ref="WordPress"/>
     <rule ref="WordPress-Docs"/>
 
     <!-- Only check PHP files -->
-    <file>ai-style-finder.php</file>
+    <file>ai-product-finder.php</file>
     <file>includes/</file>
     
     <!-- Exclude paths -->

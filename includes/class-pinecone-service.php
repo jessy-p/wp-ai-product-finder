@@ -2,7 +2,7 @@
 /**
  * Pinecone Service Class
  *
- * @package AI_Style_Finder
+ * @package AI_Product_Finder
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -32,8 +32,8 @@ class Pinecone_Service {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->api_key   = defined( 'AI_STYLE_FINDER_PINECONE_API_KEY' ) ? AI_STYLE_FINDER_PINECONE_API_KEY : '';
-		$this->index_url = defined( 'AI_STYLE_FINDER_PINECONE_INDEX_URL' ) ? AI_STYLE_FINDER_PINECONE_INDEX_URL : '';
+		$this->api_key   = defined( 'AI_PRODUCT_FINDER_PINECONE_API_KEY' ) ? AI_PRODUCT_FINDER_PINECONE_API_KEY : '';
+		$this->index_url = defined( 'AI_PRODUCT_FINDER_PINECONE_INDEX_URL' ) ? AI_PRODUCT_FINDER_PINECONE_INDEX_URL : '';
 	}
 
 	/**

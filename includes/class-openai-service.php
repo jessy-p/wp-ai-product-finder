@@ -2,7 +2,7 @@
 /**
  * OpenAI Service Class
  *
- * @package AI_Style_Finder
+ * @package AI_Product_Finder
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -25,7 +25,7 @@ class OpenAI_Service {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->api_key = defined( 'AI_STYLE_FINDER_OPENAI_API_KEY' ) ? AI_STYLE_FINDER_OPENAI_API_KEY : '';
+		$this->api_key = defined( 'AI_PRODUCT_FINDER_OPENAI_API_KEY' ) ? AI_PRODUCT_FINDER_OPENAI_API_KEY : '';
 	}
 
 	/**

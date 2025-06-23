@@ -9,12 +9,12 @@ export default function Edit({ attributes, setAttributes }) {
 		<div {...useBlockProps()}>
 			<RichText
 				tagName="h3"
-				className="ai-style-finder-title"
+				className="ai-product-finder-title"
 				value={blockTitle}
 				onChange={(value) => setAttributes({ blockTitle: value })}
-				placeholder={__('Enter block title...', 'ai-style-finder')}
+				placeholder={__('Enter block title...', 'ai-product-finder')}
 			/>
-			<p>{__('AI-powered product search will appear here on the frontend.', 'ai-style-finder')}</p>
+			<p>{__('AI-powered product search will appear here on the frontend.', 'ai-product-finder')}</p>
 		</div>
 	);
 }

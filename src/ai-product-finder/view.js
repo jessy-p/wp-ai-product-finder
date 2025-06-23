@@ -6,7 +6,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-	const blocks = document.querySelectorAll('.wp-block-create-block-ai-style-finder');
+	const blocks = document.querySelectorAll('.wp-block-create-block-ai-product-finder');
 	
 	blocks.forEach(function(block) {
 		const searchInput = block.querySelector('.ai-search-input');
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				console.log('Calling API for:', query);
 				
-				fetch('/wp-json/ai-style-finder/v1/search', {
+				fetch('/wp-json/ai-product-finder/v1/search', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
