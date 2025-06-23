@@ -44,8 +44,15 @@ function register_ai_product_finder_api() {
 		'ai-product-finder/v1',
 		'/search',
 		array(
-			'methods'  => 'POST',
-			'callback' => 'handle_ai_search_request',
+			'methods'             => 'POST',
+			'callback'            => 'handle_ai_search_request',
+			'permission_callback' => '__return_true',
+			'args'                => array(
+				'query' => array(
+					'required'          => true,
+					'sanitize_callback' => 'sanitize_text_field',
+				),
+			),
 		)
 	);
 }
