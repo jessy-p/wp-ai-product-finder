@@ -6,7 +6,7 @@ A demonstration WordPress Gutenberg block showcasing AI-powered e-commerce produ
 
 ## Overview
 
-AI Product Finder transforms product discovery by enabling customers to search using natural language descriptions like "cozy hoodie for winter" instead of traditional keyword matching. The plugin demonstrates modern AI/ML integration patterns in WordPress using vector similarity search and large language models.
+AI Product Finder enables customers to search using natural language descriptions instead of traditional keyword matching. The plugin demonstrates modern AI/ML integration patterns in WordPress using vector similarity search and large language models.
 
 ## How it Works
 
@@ -16,13 +16,13 @@ This demo uses a sample WooCommerce catalog of around 150 products found at http
 
 ### Semantic Search and Vector Databases
 
-**Traditional keyword search** looks for exact word matches. If you search for "cozy winter clothes," it only finds products with those exact words in the title or description.
+**Traditional keyword search** looks for exact word matches. If you search for "cozy winter clothes" it only finds products with those exact words in the title or description.
 
 **Semantic search** understands meaning and context. It knows that "cozy" relates to "warm," "comfortable," and "soft," and that "winter clothes" includes hoodies, sweaters, and jackets - even if those exact words aren't in the product name.
 
-**Vector databases** make this possible by converting text into mathematical representations called embeddings. Each product description becomes a list of 1,024 numbers that capture its semantic meaning. Similar products have similar number patterns, allowing the database to find related items based on meaning rather than just keywords.
+**Vector databases** make this possible by converting text into mathematical representations called embeddings. Each product description becomes a list of numbers that capture its semantic meaning. Similar products have similar number patterns, allowing the database to find related items based on meaning rather than just keywords.
 
-**Pinecone** is a cloud-based vector database where we can upload our product catalog and get instant semantic search capabilities. Each product's name, description, and attributes are processed through an embedding model and converted into a 1024-dimensional vector that captures its semantic meaning, then stored in Pinecone for fast similarity search.
+**Pinecone** is a cloud-based vector database where we can upload our product catalog and get instant semantic search capabilities. Each product's name, description, and attributes are processed through an embedding model and converted into a n-dimensional vector that captures its semantic meaning, then stored in Pinecone for fast similarity search.
 
 **Setup Process:** A Python script was used to read the WooCommerce CSV file. Each product was processed through Pinecone's `llama-text-embed-v2` embedding model to generate 1024-dimensional vectors. The vectors are then uploaded to Pinecone along with product data (name, description, price, categories, attributes etc.). The index `woocommerce-products` is configured for cosine similarity search to find semantically related products.
 
@@ -70,7 +70,7 @@ $openai->explain_matches($query, $products);
    - Enrich the results from index with the up-to-date WooCommerce data such as pricing, images and URL.
    - Product results link to the product URL.
 
-* **Service Class Architecture** - Dedicated `Pinecone_Service` and `OpenAI_Service` classes to seperate external API operations from WordPress core logic.
+* **Service Class Architecture** - Dedicated `Pinecone_Service` and `OpenAI_Service` classes to seperate external API operations from the core logic.
 
 ## Installation & Configuration
 
