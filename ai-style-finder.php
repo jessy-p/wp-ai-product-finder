@@ -59,10 +59,14 @@ add_action( 'rest_api_init', 'register_ai_style_finder_api' );
  */
 function handle_ai_search_request( $request ) {
 	$query = $request->get_param( 'query' );
+	$results_count = $request->get_param( 'productCount' );
 
 	if ( empty( $query ) ) {
 		return new WP_Error( 'missing_query', 'Query parameter is required', array( 'status' => 400 ) );
 	}
+
+	// Default to 6 results if not provided or invalid
+	$results_count = is_numeric( $results_count ) ? intval( $results_count ) : 6;
 
 	$pinecone = new Pinecone_Service();
 	$openai   = new OpenAI_Service();
@@ -77,7 +81,7 @@ function handle_ai_search_request( $request ) {
 
 	// STEP 2: Semantic similarity search in vector database.
 	// Use the query embedding to find products with similar semantic meaning in the Pinecone index.
-	$search_results = $pinecone->search( $embedding_result, 6 );
+	$search_results = $pinecone->search( $embedding_result, $results_count );
 	if ( is_wp_error( $search_results ) ) {
 		return $search_results;
 	}
@@ -125,7 +129,9 @@ function handle_ai_search_request( $request ) {
  * @return string Rendered block HTML.
  */
 function render_ai_style_finder_block( $attributes, $content ) {
-	return '<div class="wp-block-create-block-ai-style-finder">
+	$product_count = isset( $attributes['productCount'] ) ? intval( $attributes['productCount'] ) : 6;
+	
+	return '<div class="wp-block-create-block-ai-style-finder" data-product-count="' . esc_attr( $product_count ) . '">
 		<h3 class="ai-style-finder-title">AI Style Finder</h3>
 		<div class="ai-style-finder-search">
 			<div class="search-input-container">
@@ -141,7 +147,7 @@ function render_ai_style_finder_block( $attributes, $content ) {
 			<div class="ai-suggestion-chips">
 				<button class="suggestion-chip">Cozy black hoodie for chilly days</button>
 				<button class="suggestion-chip">Comfortable yoga pants for stretching</button>
-				<button class="suggestion-chip">Womens stylish tank for gym workouts</button>
+				<button class="suggestion-chip">Women\'s stylish tank for gym workouts</button>
 				<button class="suggestion-chip">Eco-friendly gear that looks premium</button>
 				<button class="suggestion-chip">Lightweight jacket for outdoor activities</button>
 				<button class="suggestion-chip">Expert-recommended performance pieces</button>

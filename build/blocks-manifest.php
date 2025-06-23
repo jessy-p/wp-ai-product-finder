@@ -9,9 +9,15 @@ return array(
 		'title' => 'AI Style Finder',
 		'category' => 'widgets',
 		'icon' => 'smiley',
-		'description' => 'Example block scaffolded with Create Block tool.',
+		'description' => 'Block that displays AI-powered Search Results',
 		'example' => array(
 			
+		),
+		'attributes' => array(
+			'productCount' => array(
+				'type' => 'number',
+				'default' => 6
+			)
 		),
 		'supports' => array(
 			'html' => false

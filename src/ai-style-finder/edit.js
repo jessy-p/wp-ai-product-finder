@@ -1,41 +1,30 @@
-/**
- * Retrieves the translation of text.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-i18n/
- */
 import { __ } from '@wordpress/i18n';
-
-/**
- * React hook that is used to mark the block wrapper element.
- * It provides all the necessary props like the class name.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/packages/packages-block-editor/#useblockprops
- */
-import { useBlockProps } from '@wordpress/block-editor';
-
-/**
- * Lets webpack process CSS, SASS or SCSS files referenced in JavaScript files.
- * Those files can contain any CSS code that gets applied to the editor.
- *
- * @see https://www.npmjs.com/package/@wordpress/scripts#using-css
- */
+import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
+import { PanelBody, RangeControl } from '@wordpress/components';
 import './editor.scss';
 
-/**
- * The edit function describes the structure of your block in the context of the
- * editor. This represents what the editor will render when the block is used.
- *
- * @see https://developer.wordpress.org/block-editor/reference-guides/block-api/block-edit-save/#edit
- *
- * @return {Element} Element to render.
- */
-export default function Edit() {
+export default function Edit({ attributes, setAttributes }) {
+	const { productCount } = attributes;
+
 	return (
-		<p { ...useBlockProps() }>
-			{ __(
-				'AI Style Finder – hello from the editor!',
-				'ai-style-finder'
-			) }
-		</p>
+		<>
+			<InspectorControls>
+				<PanelBody title={__('Search Settings', 'ai-style-finder')}>
+					<RangeControl
+						label={__('Number of Products to Display', 'ai-style-finder')}
+						value={productCount}
+						onChange={(value) => setAttributes({ productCount: value })}
+						min={3}
+						max={12}
+						step={3}
+					/>
+				</PanelBody>
+			</InspectorControls>
+			<div {...useBlockProps()}>
+				<h3>{__('AI Style Finder', 'ai-style-finder')}</h3>
+				<p>{__('Configure search settings in the sidebar panel.', 'ai-style-finder')}</p>
+				<p>{__(`Will display ${productCount} products.`, 'ai-style-finder')}</p>
+			</div>
+		</>
 	);
 }

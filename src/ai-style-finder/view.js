@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		const searchInput = block.querySelector('.ai-search-input');
 		const searchButton = block.querySelector('.search-button');
 		const chips = block.querySelectorAll('.suggestion-chip');
+		const productCount = parseInt(block.dataset.productCount) || 6;
 		
 		function performSearch() {
 			const query = searchInput.value.trim();
@@ -23,7 +24,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				searchInput.value = 'Searching...';
 				searchInput.style.color = '#999';
 
-				console.log('Calling API for:', query);
+				console.log('Calling API for:', query, 'with', productCount, 'products');
 				
 				fetch('/wp-json/ai-style-finder/v1/search', {
 					method: 'POST',
@@ -31,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
 						'Content-Type': 'application/json',
 					},
 					body: JSON.stringify({
-						query: query
+						query: query,
+						productCount: productCount
 					})
 				})
 				.then(response => response.json())
