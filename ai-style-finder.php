@@ -72,7 +72,7 @@ function handle_ai_search_request( $request ) {
 	// Example: "Cozy Hoodie" → [-0.03546142578125,-0.0379638671875, ...] (1024-dimensional vector).
 	$embedding_result = $pinecone->generate_embedding( $query );
 	if ( is_wp_error( $embedding_result ) ) {
-		return $embedding;
+		return $embedding_result;
 	}
 
 	// STEP 2: Semantic similarity search in vector database.
