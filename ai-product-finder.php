@@ -141,12 +141,12 @@ function render_ai_product_finder_block( $attributes, $content ) {
 				</button>
 			</div>
 			<div class="ai-suggestion-chips">
-				<button class="suggestion-chip">Cozy black hoodie for chilly days</button>
+				<button class="suggestion-chip">Cozy gray hoodie for chilly days</button>
 				<button class="suggestion-chip">Comfortable yoga pants for stretching</button>
 				<button class="suggestion-chip">Women\'s stylish tank for gym workouts</button>
 				<button class="suggestion-chip">Eco-friendly gear that looks premium</button>
 				<button class="suggestion-chip">Lightweight jacket for outdoor activities</button>
-				<button class="suggestion-chip">Expert-recommended performance pieces</button>
+				<button class="suggestion-chip">Expert-recommended performance wear</button>
 			</div>
 		</div>
 		<div class="search-results"></div>
