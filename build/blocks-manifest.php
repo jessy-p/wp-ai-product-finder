@@ -14,9 +14,9 @@ return array(
 			
 		),
 		'attributes' => array(
-			'productCount' => array(
-				'type' => 'number',
-				'default' => 6
+			'blockTitle' => array(
+				'type' => 'string',
+				'default' => 'AI Style Finder'
 			)
 		),
 		'supports' => array(

@@ -9,9 +9,9 @@
 	"description": "Block that displays AI-powered Search Results",
 	"example": {},
 	"attributes": {
-		"productCount": {
-			"type": "number",
-			"default": 6
+		"blockTitle": {
+			"type": "string",
+			"default": "AI Style Finder"
 		}
 	},
 	"supports": {

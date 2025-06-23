@@ -1,30 +1,20 @@
 import { __ } from '@wordpress/i18n';
-import { useBlockProps, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, RangeControl } from '@wordpress/components';
+import { useBlockProps, RichText } from '@wordpress/block-editor';
 import './editor.scss';
 
 export default function Edit({ attributes, setAttributes }) {
-	const { productCount } = attributes;
+	const { blockTitle } = attributes;
 
 	return (
-		<>
-			<InspectorControls>
-				<PanelBody title={__('Search Settings', 'ai-style-finder')}>
-					<RangeControl
-						label={__('Number of Products to Display', 'ai-style-finder')}
-						value={productCount}
-						onChange={(value) => setAttributes({ productCount: value })}
-						min={3}
-						max={12}
-						step={3}
-					/>
-				</PanelBody>
-			</InspectorControls>
-			<div {...useBlockProps()}>
-				<h3>{__('AI Style Finder', 'ai-style-finder')}</h3>
-				<p>{__('Configure search settings in the sidebar panel.', 'ai-style-finder')}</p>
-				<p>{__(`Will display ${productCount} products.`, 'ai-style-finder')}</p>
-			</div>
-		</>
+		<div {...useBlockProps()}>
+			<RichText
+				tagName="h3"
+				className="ai-style-finder-title"
+				value={blockTitle}
+				onChange={(value) => setAttributes({ blockTitle: value })}
+				placeholder={__('Enter block title...', 'ai-style-finder')}
+			/>
+			<p>{__('AI-powered product search will appear here on the frontend.', 'ai-style-finder')}</p>
+		</div>
 	);
 }
