@@ -2,7 +2,7 @@
 
 A demonstration WordPress Gutenberg block showcasing AI-powered e-commerce product search using vector embeddings and natural language processing.
 
-![AI Product Finder Demo](screenshot.png)
+![Demo](assets/demo.gif)
 
 ## Overview
 
@@ -56,7 +56,7 @@ $openai->explain_matches($query, $products);
 
 ## Technical Highlights
 
-* **Dynamic Gutenberg Block** - Server-side PHP rendering with progressive JavaScript enhancement.
+* **Dynamic Gutenberg Block** - Server-side PHP rendering with JavaScript enhancement.
 
 * **Block Attributes & Controls** - Editable block title using RichText component.
 
@@ -67,7 +67,7 @@ $openai->explain_matches($query, $products);
 
 * **WooCommerce Integration**
    - Map results from the index to WooCommerce product using SKU. 
-   - Enrich the results from index with the up-to-date WooCommerce data such as pricing, inventory and images.
+   - Enrich the results from index with the up-to-date WooCommerce data such as pricing, images and URL.
    - Product results link to the product URL.
 
 * **Service Class Architecture** - Dedicated `Pinecone_Service` and `OpenAI_Service` classes to seperate external API operations from WordPress core logic.
