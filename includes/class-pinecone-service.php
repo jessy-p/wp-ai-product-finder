@@ -5,7 +5,6 @@
  * @package AI_Style_Finder
  */
 
-// Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
@@ -85,10 +84,10 @@ class Pinecone_Service {
 	 * Search Pinecone with embedding vector.
 	 *
 	 * @param array $embedding The embedding vector to search with.
-	 * @param int   $top_k     Number of results to return (default 5).
+	 * @param int   $top_k     Number of results to return (default 6).
 	 * @return array|WP_Error Array of matches or WP_Error on failure.
 	 */
-	public function search( $embedding, $top_k = 5 ) {
+	public function search( $embedding, $top_k = 6 ) {
 		$response = wp_remote_post(
 			$this->index_url,
 			array(

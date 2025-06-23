@@ -14,10 +14,9 @@
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly.
+	exit;
 }
 
-// Include services.
 require_once __DIR__ . '/includes/class-pinecone-service.php';
 require_once __DIR__ . '/includes/class-openai-service.php';
 
@@ -68,17 +67,45 @@ function handle_ai_search_request( $request ) {
 	$pinecone = new Pinecone_Service();
 	$openai   = new OpenAI_Service();
 
+	// STEP 1: Convert natural language to vector embedding.
+	// Transform user query (e.g. "cozy hoodie") into a vector that captures semantic meaning.
+	// Example: "Cozy Hoodie" → [-0.03546142578125,-0.0379638671875, ...] (1024-dimensional vector).
 	$embedding_result = $pinecone->generate_embedding( $query );
 	if ( is_wp_error( $embedding_result ) ) {
 		return $embedding;
 	}
 
-	$search_results = $pinecone->search( $embedding_result, 5 );
+	// STEP 2: Semantic similarity search in vector database.
+	// Use the query embedding to find products with similar semantic meaning in the Pinecone index.
+	$search_results = $pinecone->search( $embedding_result, 6 );
 	if ( is_wp_error( $search_results ) ) {
 		return $search_results;
 	}
 
+	// STEP 3: Generate human-readable explanations for the semantic matches.
+	// Use LLM to explain why each product matches the user's search intent.
 	$explanations = $openai->explain_matches( $query, $search_results );
+
+	// STEP 4: Enrich search results with live WooCommerce product data (prices, images, URLs, stock status).
+	foreach ( $search_results as &$result ) {
+		$sku = $result['metadata']['sku'] ?? null;
+		if ( $sku && function_exists( 'wc_get_product_id_by_sku' ) ) {
+			$product_id = wc_get_product_id_by_sku( $sku );
+			$product    = wc_get_product( $product_id );
+
+			if ( $product && $product->is_visible() ) {
+				$result['wc_data'] = array(
+					'name'              => $product->get_name(),
+					'price_html'        => $product->get_price_html(),
+					'image_url'         => wp_get_attachment_url( $product->get_image_id() ),
+					'product_url'       => get_permalink( $product->get_id() ),
+					'short_description' => $product->get_short_description(),
+					'in_stock'          => $product->is_in_stock(),
+					'on_sale'           => $product->is_on_sale(),
+				);
+			}
+		}
+	}
 
 	return array(
 		'success'      => true,
@@ -112,11 +139,27 @@ function render_ai_style_finder_block( $attributes, $content ) {
 				</button>
 			</div>
 			<div class="ai-suggestion-chips">
-				<button class="suggestion-chip">Gym clothes that look good for brunch after</button>
-				<button class="suggestion-chip">Lightweight breathable shirt for summer runs</button>
-				<button class="suggestion-chip">Eco-friendly workout clothes</button>
-				<button class="suggestion-chip">Performance gear recommended by experts</button>
+				<button class="suggestion-chip">Cozy black hoodie for chilly days</button>
+				<button class="suggestion-chip">Comfortable yoga pants for stretching</button>
+				<button class="suggestion-chip">Womens stylish tank for gym workouts</button>
+				<button class="suggestion-chip">Eco-friendly gear that looks premium</button>
+				<button class="suggestion-chip">Lightweight jacket for outdoor activities</button>
+				<button class="suggestion-chip">Expert-recommended performance pieces</button>
 			</div>
 		</div>
+		<div class="search-results"></div>
+		
+		<template id="product-card-template">
+			<div class="product-card">
+				<div class="product-image-container">
+					<img class="product-image" src="" alt="">
+				</div>
+				<div class="product-info">
+					<h3 class="product-name"></h3>
+					<div class="product-price"></div>
+					<p class="product-explanation"></p>
+				</div>
+			</div>
+		</template>
 	</div>';
 }

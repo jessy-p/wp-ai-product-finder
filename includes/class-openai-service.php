@@ -5,7 +5,6 @@
  * @package AI_Style_Finder
  */
 
-// Prevent direct access.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
