@@ -1,6 +1,6 @@
 # AI Product Finder
 
-A demonstration WordPress Gutenberg block showcasing AI-powered e-commerce product search using vector embeddings and natural language processing.
+A demonstration WordPress Gutenberg block showcasing AI-powered e-commerce product search using vector embeddings and LLM integration.
 
 ![Demo](assets/demo.gif)
 
