@@ -35,16 +35,11 @@ It integrates with LLM to help customers understand how the matched products mat
 
 **Configuration:**
 
-1. Add your API keys and Pinecone Index URL to wp-config.php:
-   ```
-   define('AI_PRODUCT_FINDER_PINECONE_API_KEY', 'your-pinecone-api-key');
-   define('AI_PRODUCT_FINDER_PINECONE_INDEX_URL', 'your-pinecone-index-url');
-   define('AI_PRODUCT_FINDER_OPENAI_API_KEY', 'your-openai-api-key');
-   ```
+1. Configure Pinecone and OpenAI API keys on Settings page.
+* Create an account at https://www.pinecone.io/ and get the API key, add it as Pinecone API Key.
+* Create an OpenAI account at https://openai.com/ and get the API key, add it as OpenAI API Key.
 
-2. Ensure your WooCommerce products have SKUs that match your Pinecone vector database entries
-
-3. Test the block by adding it to a page and performing a search
+2. Click on "Create Index" under Sync Catalog to Pinecone for your products to be uploaded to Pinecone and wait for the success message.
 
 == Changelog ==
 

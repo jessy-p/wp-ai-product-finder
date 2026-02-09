@@ -127,7 +127,7 @@ class AI_Product_Finder_Admin_Settings {
 		// Index Information Section
 		add_settings_section(
 			'ai_product_finder_index_section',
-			'Index Information',
+			'Index Information (Read-Only)',
 			array( $this, 'render_index_section' ),
 			'ai-product-finder-settings'
 		);
