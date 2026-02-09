@@ -17,6 +17,10 @@ return array(
 			'blockTitle' => array(
 				'type' => 'string',
 				'default' => 'AI Product Finder'
+			),
+			'resultCount' => array(
+				'type' => 'number',
+				'default' => 3
 			)
 		),
 		'supports' => array(

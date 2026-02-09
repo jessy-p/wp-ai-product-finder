@@ -12,6 +12,10 @@
 		"blockTitle": {
 			"type": "string",
 			"default": "AI Product Finder"
+		},
+		"resultCount": {
+			"type": "number",
+			"default": 3
 		}
 	},
 	"supports": {

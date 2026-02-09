@@ -32,8 +32,8 @@ class Pinecone_Service {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->api_key   = defined( 'AI_PRODUCT_FINDER_PINECONE_API_KEY' ) ? AI_PRODUCT_FINDER_PINECONE_API_KEY : '';
-		$this->index_url = defined( 'AI_PRODUCT_FINDER_PINECONE_INDEX_URL' ) ? AI_PRODUCT_FINDER_PINECONE_INDEX_URL : '';
+		$this->api_key   = AI_Product_Finder_Admin_Settings::get_setting( 'pinecone_api_key' );
+		$this->index_url = get_option( 'ai_product_finder_index_url', '' );
 	}
 
 	/**
@@ -88,8 +88,11 @@ class Pinecone_Service {
 	 * @return array|WP_Error Array of matches or WP_Error on failure.
 	 */
 	public function search( $embedding, $top_k = 6 ) {
+		// Construct the query URL from the index URL
+		$query_url = rtrim( $this->index_url, '/' ) . '/query';
+
 		$response = wp_remote_post(
-			$this->index_url,
+			$query_url,
 			array(
 				'headers' => array(
 					'Api-Key'      => $this->api_key,

@@ -25,7 +25,7 @@ class OpenAI_Service {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->api_key = defined( 'AI_PRODUCT_FINDER_OPENAI_API_KEY' ) ? AI_PRODUCT_FINDER_OPENAI_API_KEY : '';
+		$this->api_key = AI_Product_Finder_Admin_Settings::get_setting( 'openai_api_key' );
 	}
 
 	/**

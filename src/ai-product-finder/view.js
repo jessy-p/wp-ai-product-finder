@@ -16,27 +16,34 @@ document.addEventListener('DOMContentLoaded', function() {
 		function performSearch() {
 			const query = searchInput.value.trim();
 			if (query) {
+				// Get result count from block data attribute
+				const resultCount = parseInt(block.dataset.resultCount) || 3;
+
 				// Loading state
 				searchButton.disabled = true;
 				searchButton.textContent = '...';
 				searchInput.disabled = true;
-				searchInput.value = 'Searching...';
+				searchInput.value = 'Searching for: ' + query;
 				searchInput.style.color = '#999';
 
-				console.log('Calling API for:', query);
-				
+
+				// Show loading in results area
+				const resultsContainer = block.querySelector('.search-results');
+				resultsContainer.innerHTML = '<div class="loading-container"><div class="loading-dots"><span></span><span></span><span></span></div></div>';
+				resultsContainer.classList.add('show');
+
 				fetch('/wp-json/ai-product-finder/v1/search', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
 					},
 					body: JSON.stringify({
-						query: query
+						query: query,
+						count: resultCount
 					})
 				})
 				.then(response => response.json())
 				.then(data => {
-					console.log('API Response:', data);
 					if (data.success && data.results) {
 						displayProductResults(block, data.results, data.explanations);
 					} else {
