@@ -5,7 +5,7 @@
  * Version:           0.1.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
- * Author:            The WordPress Contributors
+ * Author:            JC
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       ai-product-finder
@@ -27,6 +27,17 @@ require_once __DIR__ . '/includes/class-catalog-processor.php';
  */
 if ( is_admin() ) {
 	new AI_Product_Finder_Admin_Settings();
+}
+
+/**
+ * Add settings link to plugins page
+ */
+add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'ai_product_finder_add_settings_link' );
+
+function ai_product_finder_add_settings_link( $links ) {
+	$settings_link = '<a href="' . admin_url( 'options-general.php?page=ai-product-finder-settings' ) . '">' . __( 'Settings' ) . '</a>';
+	array_unshift( $links, $settings_link );
+	return $links;
 }
 
 
