@@ -70,7 +70,7 @@ $openai->explain_matches($query, $products);
    - Enrich the results from index with the up-to-date WooCommerce data such as pricing, images and URL.
    - Product results link to the product URL.
 
-* **Service Class Architecture** - Dedicated `Pinecone_Service` and `OpenAI_Service` classes to seperate external API operations from the core logic.
+* **Service Class Architecture** - Dedicated `AI_Product_Finder_Pinecone_Service` and `AI_Product_Finder_OpenAI_Service` classes to seperate external API operations from the core logic.
 
 ## Installation & Configuration
 

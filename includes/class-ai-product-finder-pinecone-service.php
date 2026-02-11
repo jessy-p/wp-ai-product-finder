@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Pinecone Service Class for handling vector operations.
  */
-class Pinecone_Service {
+class AI_Product_Finder_Pinecone_Service {
 
 	/**
 	 * Pinecone API key.
@@ -88,7 +88,7 @@ class Pinecone_Service {
 	 * @return array|WP_Error Array of matches or WP_Error on failure.
 	 */
 	public function search( $embedding, $top_k = 6 ) {
-		// Construct the query URL from the index URL
+		// Construct the query URL from the index URL.
 		$query_url = rtrim( $this->index_url, '/' ) . '/query';
 
 		$response = wp_remote_post(

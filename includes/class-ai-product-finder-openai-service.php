@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * OpenAI Service Class for handling LLM API requests.
  */
-class OpenAI_Service {
+class AI_Product_Finder_OpenAI_Service {
 
 	/**
 	 * OpenAI API key.

@@ -2,7 +2,7 @@
 /**
  * Plugin Name:       AI Product Finder
  * Description:       AI-powered Product Search
- * Version:           0.1.0
+ * Version:           1.0.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
  * Author:            JC
@@ -10,17 +10,17 @@
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       ai-product-finder
  *
- * @package CreateBlock
+ * @package AI_Product_Finder
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once __DIR__ . '/includes/class-pinecone-service.php';
-require_once __DIR__ . '/includes/class-openai-service.php';
-require_once __DIR__ . '/includes/class-admin-settings.php';
-require_once __DIR__ . '/includes/class-catalog-processor.php';
+require_once __DIR__ . '/includes/class-ai-product-finder-pinecone-service.php';
+require_once __DIR__ . '/includes/class-ai-product-finder-openai-service.php';
+require_once __DIR__ . '/includes/class-ai-product-finder-admin-settings.php';
+require_once __DIR__ . '/includes/class-ai-product-finder-catalog-processor.php';
 
 /**
  * Initialize admin settings if in admin area
@@ -29,13 +29,16 @@ if ( is_admin() ) {
 	new AI_Product_Finder_Admin_Settings();
 }
 
-/**
- * Add settings link to plugins page
- */
 add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'ai_product_finder_add_settings_link' );
 
+/**
+ * Add settings link to plugins page.
+ *
+ * @param array $links Existing plugin action links.
+ * @return array Modified plugin action links.
+ */
 function ai_product_finder_add_settings_link( $links ) {
-	$settings_link = '<a href="' . admin_url( 'options-general.php?page=ai-product-finder-settings' ) . '">' . __( 'Settings' ) . '</a>';
+	$settings_link = '<a href="' . esc_url( admin_url( 'options-general.php?page=ai-product-finder-settings' ) ) . '">' . esc_html__( 'Settings', 'ai-product-finder' ) . '</a>';
 	array_unshift( $links, $settings_link );
 	return $links;
 }
@@ -44,29 +47,29 @@ function ai_product_finder_add_settings_link( $links ) {
 /**
  * Initialize AI Product Finder block registration
  */
-function create_block_ai_product_finder_block_init() {
+function ai_product_finder_block_init() {
 	$manifest_data = include __DIR__ . '/build/blocks-manifest.php';
 	foreach ( array_keys( $manifest_data ) as $block_type ) {
 		register_block_type(
 			__DIR__ . "/build/{$block_type}",
 			array(
-				'render_callback' => 'render_ai_product_finder_block',
+				'render_callback' => 'ai_product_finder_render_block',
 			)
 		);
 	}
 }
-add_action( 'init', 'create_block_ai_product_finder_block_init' );
+add_action( 'init', 'ai_product_finder_block_init' );
 
 /**
  * Register REST API endpoint for AI search
  */
-function register_ai_product_finder_api() {
+function ai_product_finder_register_api() {
 	register_rest_route(
 		'ai-product-finder/v1',
 		'/search',
 		array(
 			'methods'             => 'POST',
-			'callback'            => 'handle_ai_search_request',
+			'callback'            => 'ai_product_finder_handle_search_request',
 			'permission_callback' => '__return_true',
 			'args'                => array(
 				'query' => array(
@@ -76,7 +79,7 @@ function register_ai_product_finder_api() {
 				'count' => array(
 					'required'          => true,
 					'sanitize_callback' => 'absint',
-					'validate_callback' => function( $param ) {
+					'validate_callback' => function ( $param ) {
 						return is_numeric( $param ) && $param >= 1 && $param <= 20;
 					},
 				),
@@ -84,14 +87,14 @@ function register_ai_product_finder_api() {
 		)
 	);
 }
-add_action( 'rest_api_init', 'register_ai_product_finder_api' );
+add_action( 'rest_api_init', 'ai_product_finder_register_api' );
 
 /**
  * Register AJAX handlers for catalog sync operations
  */
-add_action( 'wp_ajax_ai_product_finder_create_index', 'handle_create_index_ajax' );
-add_action( 'wp_ajax_ai_product_finder_update_index', 'handle_update_index_ajax' );
-add_action( 'wp_ajax_ai_product_finder_get_index_info', 'handle_get_index_info_ajax' );
+add_action( 'wp_ajax_ai_product_finder_create_index', 'ai_product_finder_handle_create_index_ajax' );
+add_action( 'wp_ajax_ai_product_finder_update_index', 'ai_product_finder_handle_update_index_ajax' );
+add_action( 'wp_ajax_ai_product_finder_get_index_info', 'ai_product_finder_handle_get_index_info_ajax' );
 
 /**
  * Handle AI search API request
@@ -99,17 +102,16 @@ add_action( 'wp_ajax_ai_product_finder_get_index_info', 'handle_get_index_info_a
  * @param WP_REST_Request $request The REST API request object.
  * @return array|WP_Error Response array or WP_Error on failure.
  */
-function handle_ai_search_request( $request ) {
+function ai_product_finder_handle_search_request( $request ) {
 	$query = $request->get_param( 'query' );
 	$count = $request->get_param( 'count' );
-
 
 	if ( empty( $query ) ) {
 		return new WP_Error( 'missing_query', 'Query parameter is required', array( 'status' => 400 ) );
 	}
 
-	$pinecone = new Pinecone_Service();
-	$openai   = new OpenAI_Service();
+	$pinecone = new AI_Product_Finder_Pinecone_Service();
+	$openai   = new AI_Product_Finder_OpenAI_Service();
 
 	// STEP 1: Convert natural language to vector embedding.
 	// Transform user query (e.g. "cozy hoodie") into a vector that captures semantic meaning.
@@ -168,10 +170,10 @@ function handle_ai_search_request( $request ) {
  *
  * @return string Rendered block HTML.
  */
-function render_ai_product_finder_block( $attributes, $content ) {
-	$block_title = isset( $attributes['blockTitle'] ) ? $attributes['blockTitle'] : 'AI Product Finder';
+function ai_product_finder_render_block( $attributes, $content ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter.FoundAfterLastUsed
+	$block_title  = isset( $attributes['blockTitle'] ) ? $attributes['blockTitle'] : 'AI Product Finder';
 	$result_count = isset( $attributes['resultCount'] ) ? intval( $attributes['resultCount'] ) : 3;
-	
+
 	return '<div class="wp-block-create-block-ai-product-finder" data-result-count="' . esc_attr( $result_count ) . '">
 		<h3 class="ai-product-finder-title">' . wp_kses_post( $block_title ) . '</h3>
 		<div class="ai-product-finder-search">
@@ -179,19 +181,19 @@ function render_ai_product_finder_block( $attributes, $content ) {
 				<input
 					type="text"
 					class="ai-search-input"
-					placeholder="Describe what you are looking for..."
+					placeholder="' . esc_attr__( 'Describe what you are looking for...', 'ai-product-finder' ) . '"
 				/>
 				<button type="button" class="search-button">
 					<span class="search-icon">🔍</span>
 				</button>
 			</div>
 			<div class="ai-suggestion-chips">
-				<button class="suggestion-chip">Cozy gray hoodie for chilly days</button>
-				<button class="suggestion-chip">Comfortable yoga pants for stretching</button>
-				<button class="suggestion-chip">Women\'s stylish tank for gym workouts</button>
-				<button class="suggestion-chip">Eco-friendly gear that looks premium</button>
-				<button class="suggestion-chip">Lightweight jacket for outdoor activities</button>
-				<button class="suggestion-chip">Expert-recommended performance wear</button>
+				<button class="suggestion-chip">' . esc_html__( 'Cozy gray hoodie for chilly days', 'ai-product-finder' ) . '</button>
+				<button class="suggestion-chip">' . esc_html__( 'Comfortable yoga pants for stretching', 'ai-product-finder' ) . '</button>
+				<button class="suggestion-chip">' . esc_html__( 'Women\'s stylish tank for gym workouts', 'ai-product-finder' ) . '</button>
+				<button class="suggestion-chip">' . esc_html__( 'Eco-friendly gear that looks premium', 'ai-product-finder' ) . '</button>
+				<button class="suggestion-chip">' . esc_html__( 'Lightweight jacket for outdoor activities', 'ai-product-finder' ) . '</button>
+				<button class="suggestion-chip">' . esc_html__( 'Expert-recommended performance wear', 'ai-product-finder' ) . '</button>
 			</div>
 		</div>
 		<div class="search-results"></div>
@@ -214,19 +216,19 @@ function render_ai_product_finder_block( $attributes, $content ) {
 /**
  * Handle create index AJAX request
  */
-function handle_create_index_ajax() {
-	// Check nonce for security
-	if ( ! wp_verify_nonce( $_POST['nonce'], 'ai_product_finder_sync_nonce' ) ) {
+function ai_product_finder_handle_create_index_ajax() {
+	// Check nonce for security.
+	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ai_product_finder_sync_nonce' ) ) {
 		wp_die( 'Invalid nonce', 'Security check', array( 'response' => 403 ) );
 	}
 
-	// Check user capabilities
+	// Check user capabilities.
 	if ( ! current_user_can( 'manage_options' ) ) {
 		wp_die( 'Insufficient permissions', 'Permission denied', array( 'response' => 403 ) );
 	}
 
 	$processor = new AI_Product_Finder_Catalog_Processor();
-	$result = $processor->create_index_and_upload();
+	$result    = $processor->create_index_and_upload();
 
 	if ( is_wp_error( $result ) ) {
 		wp_send_json_error(
@@ -243,19 +245,19 @@ function handle_create_index_ajax() {
 /**
  * Handle update index AJAX request
  */
-function handle_update_index_ajax() {
-	// Check nonce for security
-	if ( ! wp_verify_nonce( $_POST['nonce'], 'ai_product_finder_sync_nonce' ) ) {
+function ai_product_finder_handle_update_index_ajax() {
+	// Check nonce for security.
+	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ai_product_finder_sync_nonce' ) ) {
 		wp_die( 'Invalid nonce', 'Security check', array( 'response' => 403 ) );
 	}
 
-	// Check user capabilities
+	// Check user capabilities.
 	if ( ! current_user_can( 'manage_options' ) ) {
 		wp_die( 'Insufficient permissions', 'Permission denied', array( 'response' => 403 ) );
 	}
 
 	$processor = new AI_Product_Finder_Catalog_Processor();
-	$result = $processor->update_existing_index();
+	$result    = $processor->update_existing_index();
 
 	if ( is_wp_error( $result ) ) {
 		wp_send_json_error(
@@ -272,19 +274,19 @@ function handle_update_index_ajax() {
 /**
  * Handle get index info AJAX request
  */
-function handle_get_index_info_ajax() {
-	// Check nonce for security
-	if ( ! wp_verify_nonce( $_POST['nonce'], 'ai_product_finder_sync_nonce' ) ) {
+function ai_product_finder_handle_get_index_info_ajax() {
+	// Check nonce for security.
+	if ( ! isset( $_POST['nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'ai_product_finder_sync_nonce' ) ) {
 		wp_die( 'Invalid nonce', 'Security check', array( 'response' => 403 ) );
 	}
 
-	// Check user capabilities
+	// Check user capabilities.
 	if ( ! current_user_can( 'manage_options' ) ) {
 		wp_die( 'Insufficient permissions', 'Permission denied', array( 'response' => 403 ) );
 	}
 
 	$index_name = get_option( 'ai_product_finder_active_index_name', '' );
-	$index_url = get_option( 'ai_product_finder_index_url', '' );
+	$index_url  = get_option( 'ai_product_finder_index_url', '' );
 
 	wp_send_json_success(
 		array(

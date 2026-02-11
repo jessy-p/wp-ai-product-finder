@@ -1,8 +1,8 @@
 === AI Product Finder ===
-Contributors:      The WordPress Contributors
-Tags:              block, ai, search, woocommerce, semantic, vector, ecommerce
-Tested up to:      6.7
-Stable tag:        0.1.0
+Contributors:      JC
+Tags:              block, ai, search, woocommerce, semantic
+Tested up to:      6.9
+Stable tag:        1.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 6.7
@@ -43,5 +43,5 @@ It integrates with LLM to help customers understand how the matched products mat
 
 == Changelog ==
 
-= 0.1.0 =
+= 1.0.0 =
 * Initial release
