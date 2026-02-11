@@ -127,6 +127,22 @@ class AI_Product_Finder_Admin_Settings {
 			)
 		);
 
+		// Suggestion Chips Section.
+		add_settings_section(
+			'ai_product_finder_chips_section',
+			'Suggestion Chips',
+			array( $this, 'render_chips_section' ),
+			'ai-product-finder-settings'
+		);
+
+		add_settings_field(
+			'suggestion_chips',
+			'Chip Labels',
+			array( $this, 'render_suggestion_chips_field' ),
+			'ai-product-finder-settings',
+			'ai_product_finder_chips_section'
+		);
+
 		// Index Information Section.
 		add_settings_section(
 			'ai_product_finder_index_section',
@@ -181,6 +197,48 @@ class AI_Product_Finder_Admin_Settings {
 	 */
 	public function render_api_section() {
 		echo '<p>' . esc_html__( 'Configure your API keys for Pinecone and OpenAI services.', 'ai-product-finder' ) . '</p>';
+	}
+
+	/**
+	 * Render suggestion chips section description.
+	 */
+	public function render_chips_section() {
+		echo '<p>' . esc_html__( 'Configure the suggestion chips displayed below the search input. Leave a field blank to hide that chip.', 'ai-product-finder' ) . '</p>';
+	}
+
+	/**
+	 * Render suggestion chips fields.
+	 */
+	public function render_suggestion_chips_field() {
+		$defaults = self::get_default_chips();
+		$options  = get_option( self::OPTION_NAME, array() );
+		$chips    = isset( $options['suggestion_chips'] ) ? $options['suggestion_chips'] : $defaults;
+
+		for ( $i = 0; $i < 4; $i++ ) {
+			$value = isset( $chips[ $i ] ) ? $chips[ $i ] : '';
+			printf(
+				'<input type="text" name="%s[suggestion_chips][]" value="%s" class="regular-text" style="display:block; margin-bottom: 8px;" placeholder="%s" />',
+				esc_attr( self::OPTION_NAME ),
+				esc_attr( $value ),
+				/* translators: %d: chip number */
+				esc_attr( sprintf( __( 'Suggestion %d', 'ai-product-finder' ), $i + 1 ) )
+			);
+		}
+		echo '<p class="description">' . esc_html__( 'Enter up to 4 suggestion chip labels. Leave blank to hide a chip.', 'ai-product-finder' ) . '</p>';
+	}
+
+	/**
+	 * Get default suggestion chip labels.
+	 *
+	 * @return array Default chip labels.
+	 */
+	public static function get_default_chips() {
+		return array(
+			'Something comfortable and casual to wear',
+			'A great gift for someone special',
+			'Durable and high quality everyday essentials',
+			'Top trending and popular picks',
+		);
 	}
 
 	/**
@@ -333,6 +391,14 @@ class AI_Product_Finder_Admin_Settings {
 
 		if ( isset( $input['openai_api_key'] ) ) {
 			$sanitized['openai_api_key'] = sanitize_text_field( $input['openai_api_key'] );
+		}
+
+		if ( isset( $input['suggestion_chips'] ) && is_array( $input['suggestion_chips'] ) ) {
+			$sanitized['suggestion_chips'] = array_values(
+				array_filter(
+					array_map( 'sanitize_text_field', $input['suggestion_chips'] )
+				)
+			);
 		}
 
 		// Always preserve readonly fields.

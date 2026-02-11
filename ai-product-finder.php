@@ -163,6 +163,22 @@ function ai_product_finder_handle_search_request( $request ) {
 }
 
 /**
+ * Render suggestion chip buttons from saved settings.
+ *
+ * @return string Chip button HTML.
+ */
+function ai_product_finder_render_chips() {
+	$chips  = AI_Product_Finder_Admin_Settings::get_setting( 'suggestion_chips', AI_Product_Finder_Admin_Settings::get_default_chips() );
+	$output = '';
+	foreach ( $chips as $chip ) {
+		if ( ! empty( $chip ) ) {
+			$output .= '<button class="suggestion-chip">' . esc_html( $chip ) . '</button>';
+		}
+	}
+	return $output;
+}
+
+/**
  * Server-side render function for AI Product Finder block
  *
  * @param array  $attributes Block attributes (unused).
@@ -187,13 +203,8 @@ function ai_product_finder_render_block( $attributes, $content ) { // phpcs:igno
 					<span class="search-icon">🔍</span>
 				</button>
 			</div>
-			<div class="ai-suggestion-chips">
-				<button class="suggestion-chip">' . esc_html__( 'Cozy gray hoodie for chilly days', 'ai-product-finder' ) . '</button>
-				<button class="suggestion-chip">' . esc_html__( 'Comfortable yoga pants for stretching', 'ai-product-finder' ) . '</button>
-				<button class="suggestion-chip">' . esc_html__( 'Women\'s stylish tank for gym workouts', 'ai-product-finder' ) . '</button>
-				<button class="suggestion-chip">' . esc_html__( 'Eco-friendly gear that looks premium', 'ai-product-finder' ) . '</button>
-				<button class="suggestion-chip">' . esc_html__( 'Lightweight jacket for outdoor activities', 'ai-product-finder' ) . '</button>
-				<button class="suggestion-chip">' . esc_html__( 'Expert-recommended performance wear', 'ai-product-finder' ) . '</button>
+			<div class="ai-suggestion-chips">' .
+				ai_product_finder_render_chips() . '
 			</div>
 		</div>
 		<div class="search-results"></div>
