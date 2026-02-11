@@ -12,18 +12,17 @@ AI-powered semantic product search block that uses vector embeddings to find pro
 
 == Description ==
 
-AI Product Finder is a demonstration Gutenberg block showcasing AI-powered e-commerce product search capabilities using vector embeddings and large language models.
-Instead of traditional keyword matching, customers can describe what they're looking for and get relevant product recommendations using semantic search using Pinecone vector database.
-It integrates with LLM to help customers understand how the matched products match their needs.
+AI Product Finder is a Gutenberg block that enables AI-powered e-commerce product search using vector embeddings and large language models.
+Instead of traditional keyword matching, customers can describe what they're looking for and get relevant product recommendations via semantic search powered by Pinecone's vector database.
+It uses generative AI to provide concise explanations of why each product matches the customer's search.
 
 == Requirements ==
 
 * WordPress 6.7 or higher
 * PHP 7.4 or higher
 * WooCommerce plugin (active)
-* Pinecone account and API key 
+* Pinecone API key 
 * OpenAI API key
-* Product data indexed in Pinecone vector database
 
 == Installation ==
 

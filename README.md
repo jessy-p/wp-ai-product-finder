@@ -1,18 +1,20 @@
 # AI Product Finder
 
-A demonstration WordPress Gutenberg block showcasing AI-powered e-commerce product search using vector embeddings and LLM integration.
+A WordPress Gutenberg block that enables AI-powered e-commerce product search using vector embeddings and LLM integration.
 
 ![Demo](assets/demo.gif)
 
 ## Overview
 
-AI Product Finder enables customers to search using natural language descriptions instead of traditional keyword matching. The plugin demonstrates modern AI/ML integration patterns in WordPress using vector similarity search and large language models.
+AI Product Finder enables customers to search using natural language descriptions instead of traditional keyword matching. The plugin uses vector similarity search and large language models to deliver relevant product results from your WooCommerce catalog based on meaning rather than keywords.
 
 ## How it Works
 
-### Product Catalog Setup
+### Setup
 
-This demo uses a sample WooCommerce catalog of around 150 products found at https://github.com/iconicwp/woocommerce-sample-data which originally draws from [Magento's sample data set](https://github.com/magento/magento2-sample-data). 
+The plugin requires a [Pinecone](https://www.pinecone.io/) account for vector storage and search, and an [OpenAI](https://openai.com/) account for generating product explanations. Once configured under **Settings > AI Product Finder**, sync your WooCommerce catalog to Pinecone using the built-in catalog sync.
+
+For detailed installation and configuration steps, see [readme.txt](./readme.txt).
 
 ### Semantic Search and Vector Databases
 
@@ -22,9 +24,9 @@ This demo uses a sample WooCommerce catalog of around 150 products found at http
 
 **Vector databases** make this possible by converting text into mathematical representations called embeddings. Each product description becomes a list of numbers that capture its semantic meaning. Similar products have similar number patterns, allowing the database to find related items based on meaning rather than just keywords.
 
-**Pinecone** is a cloud-based vector database where we can upload our product catalog and get instant semantic search capabilities. Each product's name, description, and attributes are processed through an embedding model and converted into a n-dimensional vector that captures its semantic meaning, then stored in Pinecone for fast similarity search.
+**Pinecone** is a cloud-based vector database where we can upload our product catalog and get instant semantic search capabilities. Each product's name, description, and attributes are processed through Pinecone and converted into an embedding that captures its semantic meaning. These embeddings are stored for fast similarity search.
 
-**Setup Process:** A Python script was used to read the WooCommerce CSV file. Each product was processed through Pinecone's `llama-text-embed-v2` embedding model to generate 1024-dimensional vectors. The vectors are then uploaded to Pinecone along with product data (name, description, price, categories, attributes etc.). The index `woocommerce-products` is configured for cosine similarity search to find semantically related products.
+**Indexing Process:** When you sync your catalog from the settings page, the plugin reads your WooCommerce products directly and constructs rich text representations combining product names, descriptions, categories, attributes, and tags. These are batch-processed through Pinecone's `llama-text-embed-v2` embedding model to generate 1024-dimensional vectors. The vectors are uploaded to Pinecone along with product metadata (name, description, price, SKU, categories, attributes, etc.) into an auto-generated index configured for cosine similarity search to find semantically related products.
 
 ![Pinecone index](assets/pinecone-index.png)
 
@@ -66,32 +68,11 @@ $openai->explain_matches($query, $products);
    - Input validation and WP_Error handling.
 
 * **WooCommerce Integration**
-   - Map results from the index to WooCommerce product using SKU. 
-   - Enrich the results from index with the up-to-date WooCommerce data such as pricing, images and URL.
+   - Map results from the index to WooCommerce products using SKU.
+   - Enrich results with up-to-date WooCommerce data such as pricing, images, and URLs.
    - Product results link to the product URL.
 
-* **Service Class Architecture** - Dedicated `AI_Product_Finder_Pinecone_Service` and `AI_Product_Finder_OpenAI_Service` classes to seperate external API operations from the core logic.
-
-## Installation & Configuration
-
-Refer [readme.txt](./readme.txt)
-
-## Future Improvements
-
-This is a demo plugin and could be improved with:
-
-**Feature Improvements**
-- Ability to customize or remove the suggestions in order to support different catalogs.
-- Better progress indicators during the slow API calls.
-- Admin settings page for API key management.
-- Responsive design for different block contexts like sidebar, widget areas etc.
-- Ability to control the number of products to be displayed.
-
-**Technical Improvements**
-- Error logging.  
-- Search results caching.
-- Internationalization support.
-- Improve security of REST endpoint by rate-limiting, nonce verification, etc.
+* **Service Class Architecture** - Dedicated `AI_Product_Finder_Pinecone_Service` and `AI_Product_Finder_OpenAI_Service` classes to separate external API operations from the core logic.
 
 ## License
 
