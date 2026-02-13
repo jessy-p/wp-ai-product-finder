@@ -5,6 +5,14 @@
 	"author": "JC",
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
+	"files": [
+		"ai-product-finder.php",
+		"assets/",
+		"build/",
+		"includes/",
+		"readme.txt",
+		"README.md"
+	],
 	"scripts": {
 		"build": "wp-scripts build --blocks-manifest",
 		"format": "wp-scripts format",
