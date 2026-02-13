@@ -25,7 +25,7 @@ jQuery(document).ready(function($) {
 
         button.prop('disabled', true).text('Creating Index...');
         statusDiv.removeClass('success error').addClass('loading')
-               .html('<p>Creating Pinecone index and uploading products...</p>');
+               .empty().append($('<p>').text('Creating Pinecone index and uploading products...'));
 
         $.ajax({
             url: aiProductFinderAjax.ajaxurl,
@@ -39,19 +39,19 @@ jQuery(document).ready(function($) {
 
                 if (response.success) {
                     statusDiv.removeClass('loading error').addClass('success')
-                           .html('<p><strong>Success!</strong> ' + response.data.message + '</p>');
+                           .empty().append($('<p>').append($('<strong>').text('Success! ')).append(document.createTextNode(response.data.message)));
 
                     // Refresh index info fields
                     refreshIndexFields();
                 } else {
                     statusDiv.removeClass('loading success').addClass('error')
-                           .html('<p><strong>Error:</strong> ' + response.data.message + '</p>');
+                           .empty().append($('<p>').append($('<strong>').text('Error: ')).append(document.createTextNode(response.data.message)));
                 }
             },
             error: function() {
                 button.prop('disabled', false).text('Create Index');
                 statusDiv.removeClass('loading success').addClass('error')
-                       .html('<p><strong>Error:</strong> Failed to communicate with server.</p>');
+                       .empty().append($('<p>').append($('<strong>').text('Error: ')).append(document.createTextNode('Failed to communicate with server.')));
             }
         });
     });
@@ -63,7 +63,7 @@ jQuery(document).ready(function($) {
 
         button.prop('disabled', true).text('Updating Index...');
         statusDiv.removeClass('success error').addClass('loading')
-               .html('<p>Updating Pinecone index with current products...</p>');
+               .empty().append($('<p>').text('Updating Pinecone index with current products...'));
 
         $.ajax({
             url: aiProductFinderAjax.ajaxurl,
@@ -77,16 +77,16 @@ jQuery(document).ready(function($) {
 
                 if (response.success) {
                     statusDiv.removeClass('loading error').addClass('success')
-                           .html('<p><strong>Success!</strong> ' + response.data.message + '</p>');
+                           .empty().append($('<p>').append($('<strong>').text('Success! ')).append(document.createTextNode(response.data.message)));
                 } else {
                     statusDiv.removeClass('loading success').addClass('error')
-                           .html('<p><strong>Error:</strong> ' + response.data.message + '</p>');
+                           .empty().append($('<p>').append($('<strong>').text('Error: ')).append(document.createTextNode(response.data.message)));
                 }
             },
             error: function() {
                 button.prop('disabled', false).text('Update Index');
                 statusDiv.removeClass('loading success').addClass('error')
-                       .html('<p><strong>Error:</strong> Failed to communicate with server.</p>');
+                       .empty().append($('<p>').append($('<strong>').text('Error: ')).append(document.createTextNode('Failed to communicate with server.')));
             }
         });
     });

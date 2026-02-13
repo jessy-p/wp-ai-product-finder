@@ -1,5 +1,5 @@
 === AI Product Finder ===
-Contributors:      JC
+Contributors:      jessyp
 Tags:              block, ai, search, woocommerce, semantic
 Tested up to:      6.7
 Stable tag:        1.0.0
@@ -39,6 +39,26 @@ It uses generative AI to provide concise explanations of why each product matche
 * Create an OpenAI account at https://openai.com/ and get the API key, add it as OpenAI API Key.
 
 2. Click on "Create Index" under Sync Catalog to Pinecone for your products to be uploaded to Pinecone and wait for the success message.
+
+== External Services ==
+
+This plugin connects to the following third-party services:
+
+= OpenAI API =
+
+Used for generating text embeddings for product search and AI-powered product match explanations.
+Data sent: user search queries, product names and descriptions.
+
+* [OpenAI Terms of Use](https://openai.com/policies/terms-of-use)
+* [OpenAI Privacy Policy](https://openai.com/policies/privacy-policy)
+
+= Pinecone =
+
+Used for storing product vector embeddings and performing similarity search.
+Data sent: product embeddings, product metadata (name, price, categories), search query embeddings.
+
+* [Pinecone Terms of Service](https://www.pinecone.io/terms/)
+* [Pinecone Privacy Policy](https://www.pinecone.io/privacy/)
 
 == Changelog ==
 

@@ -6,7 +6,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-	const blocks = document.querySelectorAll('.wp-block-create-block-ai-product-finder');
+	const blocks = document.querySelectorAll('.wp-block-ai-product-finder-search');
 	
 	blocks.forEach(function(block) {
 		const searchInput = block.querySelector('.ai-search-input');
@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		const name = clone.querySelector('.product-name');
 		if (productData.name) {
-			name.innerHTML = productData.name;
+			name.textContent = productData.name;
 		} else {
 			name.textContent = 'Product';
 		}
@@ -126,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		
 		const explanationEl = clone.querySelector('.product-explanation');
 		if (explanation) {
-			explanationEl.innerHTML = explanation;
+			explanationEl.textContent = explanation;
 		} else {
 			explanationEl.textContent = 'Great match for your search.';
 		}
@@ -172,7 +172,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	 */
 	function showError(block, message) {
 		const resultsContainer = block.querySelector('.search-results');
-		resultsContainer.innerHTML = '<div class="error-message">' + message + '</div>';
+		const errorDiv = document.createElement('div');
+		errorDiv.className = 'error-message';
+		errorDiv.textContent = message;
+		resultsContainer.innerHTML = '';
+		resultsContainer.appendChild(errorDiv);
 		resultsContainer.classList.add('show');
 	}
 });

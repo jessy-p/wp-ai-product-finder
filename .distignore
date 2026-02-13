@@ -1,0 +1,15 @@
+.git
+.gitignore
+.distignore
+.eslintcache
+.env
+.DS_Store
+node_modules
+src
+package.json
+package-lock.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.tgz
+*.zip

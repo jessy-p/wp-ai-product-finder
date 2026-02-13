@@ -5,9 +5,12 @@
  * Version:           1.0.0
  * Requires at least: 6.7
  * Requires PHP:      7.4
- * Author:            JC
+ * Author:            jessyp
+ * Author URI:        https://github.com/jessy-p
+ * Plugin URI:        https://github.com/jessy-p/wp-ai-product-finder
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Requires Plugins:  woocommerce
  * Text Domain:       ai-product-finder
  *
  * @package AI_Product_Finder
@@ -190,7 +193,7 @@ function ai_product_finder_render_block( $attributes, $content ) { // phpcs:igno
 	$block_title  = isset( $attributes['blockTitle'] ) ? $attributes['blockTitle'] : 'AI Product Finder';
 	$result_count = isset( $attributes['resultCount'] ) ? intval( $attributes['resultCount'] ) : 3;
 
-	return '<div class="wp-block-create-block-ai-product-finder" data-result-count="' . esc_attr( $result_count ) . '">
+	return '<div class="wp-block-ai-product-finder-search" data-result-count="' . esc_attr( $result_count ) . '">
 		<h3 class="ai-product-finder-title">' . wp_kses_post( $block_title ) . '</h3>
 		<div class="ai-product-finder-search">
 			<div class="search-input-container">

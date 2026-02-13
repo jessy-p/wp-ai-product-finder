@@ -4,8 +4,8 @@ return array(
 	'ai-product-finder' => array(
 		'$schema' => 'https://schemas.wp.org/trunk/block.json',
 		'apiVersion' => 3,
-		'name' => 'create-block/ai-product-finder',
-		'version' => '0.1.0',
+		'name' => 'ai-product-finder/search',
+		'version' => '1.0.0',
 		'title' => 'AI Product Finder',
 		'category' => 'widgets',
 		'icon' => 'smiley',
