@@ -7,7 +7,7 @@
 	"main": "build/index.js",
 	"files": [
 		"ai-product-finder.php",
-		"assets/",
+		"assets/admin.js",
 		"build/",
 		"includes/",
 		"readme.txt",
