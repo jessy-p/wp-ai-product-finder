@@ -1,7 +1,7 @@
 === AI Product Finder ===
 Contributors:      jessyp
 Tags:              block, ai, search, woocommerce, semantic
-Tested up to:      6.7
+Tested up to:      6.9
 Stable tag:        1.0.0
 License:           GPL-2.0-or-later
 License URI:       https://www.gnu.org/licenses/gpl-2.0.html
