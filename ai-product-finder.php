@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name:       AI Product Finder
+ * Plugin Name:       JP AI Product Finder
  * Description:       AI-powered Product Search
  * Version:           1.0.0
  * Requires at least: 6.7
@@ -11,7 +11,7 @@
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Requires Plugins:  woocommerce
- * Text Domain:       ai-product-finder
+ * Text Domain:       jp-ai-product-finder
  *
  * @package AI_Product_Finder
  */
@@ -41,7 +41,7 @@ add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), 'ai_product_fi
  * @return array Modified plugin action links.
  */
 function ai_product_finder_add_settings_link( $links ) {
-	$settings_link = '<a href="' . esc_url( admin_url( 'options-general.php?page=ai-product-finder-settings' ) ) . '">' . esc_html__( 'Settings', 'ai-product-finder' ) . '</a>';
+	$settings_link = '<a href="' . esc_url( admin_url( 'options-general.php?page=ai-product-finder-settings' ) ) . '">' . esc_html__( 'Settings', 'jp-ai-product-finder' ) . '</a>';
 	array_unshift( $links, $settings_link );
 	return $links;
 }
@@ -200,7 +200,7 @@ function ai_product_finder_render_block( $attributes, $content ) { // phpcs:igno
 				<input
 					type="text"
 					class="ai-search-input"
-					placeholder="' . esc_attr__( 'Describe what you are looking for...', 'ai-product-finder' ) . '"
+					placeholder="' . esc_attr__( 'Describe what you are looking for...', 'jp-ai-product-finder' ) . '"
 				/>
 				<button type="button" class="search-button">
 					<span class="search-icon">🔍</span>

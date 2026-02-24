@@ -196,14 +196,14 @@ class AI_Product_Finder_Admin_Settings {
 	 * Render API configuration section description.
 	 */
 	public function render_api_section() {
-		echo '<p>' . esc_html__( 'Configure your API keys for Pinecone and OpenAI services.', 'ai-product-finder' ) . '</p>';
+		echo '<p>' . esc_html__( 'Configure your API keys for Pinecone and OpenAI services.', 'jp-ai-product-finder' ) . '</p>';
 	}
 
 	/**
 	 * Render suggestion chips section description.
 	 */
 	public function render_chips_section() {
-		echo '<p>' . esc_html__( 'Configure the suggestion chips displayed below the search input. Leave a field blank to hide that chip.', 'ai-product-finder' ) . '</p>';
+		echo '<p>' . esc_html__( 'Configure the suggestion chips displayed below the search input. Leave a field blank to hide that chip.', 'jp-ai-product-finder' ) . '</p>';
 	}
 
 	/**
@@ -221,10 +221,10 @@ class AI_Product_Finder_Admin_Settings {
 				esc_attr( self::OPTION_NAME ),
 				esc_attr( $value ),
 				/* translators: %d: chip number */
-				esc_attr( sprintf( __( 'Suggestion %d', 'ai-product-finder' ), $i + 1 ) )
+				esc_attr( sprintf( __( 'Suggestion %d', 'jp-ai-product-finder' ), $i + 1 ) )
 			);
 		}
-		echo '<p class="description">' . esc_html__( 'Enter up to 4 suggestion chip labels. Leave blank to hide a chip.', 'ai-product-finder' ) . '</p>';
+		echo '<p class="description">' . esc_html__( 'Enter up to 4 suggestion chip labels. Leave blank to hide a chip.', 'jp-ai-product-finder' ) . '</p>';
 	}
 
 	/**
@@ -245,7 +245,7 @@ class AI_Product_Finder_Admin_Settings {
 	 * Render index information section description.
 	 */
 	public function render_index_section() {
-		echo '<p>' . esc_html__( 'Information about your current Pinecone index. These fields are automatically populated when you create an index.', 'ai-product-finder' ) . '</p>';
+		echo '<p>' . esc_html__( 'Information about your current Pinecone index. These fields are automatically populated when you create an index.', 'jp-ai-product-finder' ) . '</p>';
 	}
 
 
@@ -253,7 +253,7 @@ class AI_Product_Finder_Admin_Settings {
 	 * Render catalog sync section description.
 	 */
 	public function render_sync_section() {
-		echo '<p>' . esc_html__( 'Sync your WooCommerce products to Pinecone for AI-powered search. Make sure to configure your API settings above first.', 'ai-product-finder' ) . '</p>';
+		echo '<p>' . esc_html__( 'Sync your WooCommerce products to Pinecone for AI-powered search. Make sure to configure your API settings above first.', 'jp-ai-product-finder' ) . '</p>';
 	}
 
 	/**

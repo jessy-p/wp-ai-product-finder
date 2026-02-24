@@ -1,4 +1,4 @@
-=== AI Product Finder ===
+=== JP AI Product Finder ===
 Contributors:      jessyp
 Tags:              block, ai, search, woocommerce, semantic
 Tested up to:      6.9
@@ -28,7 +28,7 @@ It uses generative AI to provide concise explanations of why each product matche
 
 **Basic Installation:**
 
-1. Upload the plugin files to the `/wp-content/plugins/ai-product-finder` directory, or install the plugin through the WordPress plugins screen directly
+1. Upload the plugin files to the `/wp-content/plugins/jp-ai-product-finder` directory, or install the plugin through the WordPress plugins screen directly
 2. Activate the plugin through the 'Plugins' screen in WordPress
 3. Add the AI Product Finder block to any page or post using the Gutenberg editor
 
