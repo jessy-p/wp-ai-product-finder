@@ -193,7 +193,7 @@ function jessaipf_render_block( $attributes, $content ) { // phpcs:ignore Generi
 	$block_title  = isset( $attributes['blockTitle'] ) ? $attributes['blockTitle'] : 'AI Product Finder';
 	$result_count = isset( $attributes['resultCount'] ) ? intval( $attributes['resultCount'] ) : 3;
 
-	return '<div class="wp-block-ai-product-finder-search" data-result-count="' . esc_attr( $result_count ) . '">
+	return '<div class="wp-block-jessyp-ai-product-finder-search" data-result-count="' . esc_attr( $result_count ) . '" data-rest-url="' . esc_url( rest_url( 'jessyp-ai-product-finder/v1/search' ) ) . '">
 		<h3 class="ai-product-finder-title">' . wp_kses_post( $block_title ) . '</h3>
 		<div class="ai-product-finder-search">
 			<div class="search-input-container">

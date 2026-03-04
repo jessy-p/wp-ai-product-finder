@@ -6,7 +6,7 @@
  */
 
 document.addEventListener('DOMContentLoaded', function() {
-	const blocks = document.querySelectorAll('.wp-block-ai-product-finder-search');
+	const blocks = document.querySelectorAll('.wp-block-jessyp-ai-product-finder-search');
 	
 	blocks.forEach(function(block) {
 		const searchInput = block.querySelector('.ai-search-input');
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				resultsContainer.innerHTML = '<div class="loading-container"><div class="loading-dots"><span></span><span></span><span></span></div></div>';
 				resultsContainer.classList.add('show');
 
-				fetch('/wp-json/jessyp-ai-product-finder/v1/search', {
+				fetch(block.dataset.restUrl, {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
