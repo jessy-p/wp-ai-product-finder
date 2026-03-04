@@ -2,7 +2,7 @@
 /**
  * OpenAI Service Class
  *
- * @package AI_Product_Finder
+ * @package Jess_AI_Product_Finder
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * OpenAI Service Class for handling LLM API requests.
  */
-class AI_Product_Finder_OpenAI_Service {
+class Jessaipf_OpenAI_Service {
 
 	/**
 	 * OpenAI API key.
@@ -25,7 +25,7 @@ class AI_Product_Finder_OpenAI_Service {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->api_key = AI_Product_Finder_Admin_Settings::get_setting( 'openai_api_key' );
+		$this->api_key = Jessaipf_Admin_Settings::get_setting( 'openai_api_key' );
 	}
 
 	/**

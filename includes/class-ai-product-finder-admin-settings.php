@@ -2,7 +2,7 @@
 /**
  * Admin Settings Class
  *
- * @package AI_Product_Finder
+ * @package Jess_AI_Product_Finder
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,14 +12,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Admin Settings Class for managing plugin configuration.
  */
-class AI_Product_Finder_Admin_Settings {
+class Jessaipf_Admin_Settings {
 
 	/**
 	 * Option name for storing settings.
 	 *
 	 * @var string
 	 */
-	const OPTION_NAME = 'ai_product_finder_settings';
+	const OPTION_NAME = 'jessaipf_settings';
 
 	/**
 	 * Initialize the admin settings.
@@ -38,7 +38,7 @@ class AI_Product_Finder_Admin_Settings {
 			'AI Product Finder Settings',
 			'AI Product Finder',
 			'manage_options',
-			'ai-product-finder-settings',
+			'jessaipf-settings',
 			array( $this, 'render_settings_page' )
 		);
 	}
@@ -49,12 +49,12 @@ class AI_Product_Finder_Admin_Settings {
 	 * @param string $hook_suffix The current admin page.
 	 */
 	public function enqueue_admin_scripts( $hook_suffix ) {
-		if ( 'settings_page_ai-product-finder-settings' !== $hook_suffix ) {
+		if ( 'settings_page_jessaipf-settings' !== $hook_suffix ) {
 			return;
 		}
 
 		wp_enqueue_script(
-			'ai-product-finder-admin',
+			'jessaipf-admin',
 			plugin_dir_url( __DIR__ ) . 'assets/admin.js',
 			array( 'jquery' ),
 			'1.0.0',
@@ -62,11 +62,11 @@ class AI_Product_Finder_Admin_Settings {
 		);
 
 		wp_localize_script(
-			'ai-product-finder-admin',
-			'aiProductFinderAjax',
+			'jessaipf-admin',
+			'jessaipfAjax',
 			array(
 				'ajaxurl' => admin_url( 'admin-ajax.php' ),
-				'nonce'   => wp_create_nonce( 'ai_product_finder_sync_nonce' ),
+				'nonce'   => wp_create_nonce( 'jessaipf_sync_nonce' ),
 			)
 		);
 
@@ -88,25 +88,25 @@ class AI_Product_Finder_Admin_Settings {
 	 */
 	public function init_settings() {
 		register_setting(
-			'ai_product_finder_settings_group',
+			'jessaipf_settings_group',
 			self::OPTION_NAME,
 			array( $this, 'sanitize_settings' )
 		);
 
 		// API Configuration Section.
 		add_settings_section(
-			'ai_product_finder_api_section',
+			'jessaipf_api_section',
 			'API Configuration',
 			array( $this, 'render_api_section' ),
-			'ai-product-finder-settings'
+			'jessaipf-settings'
 		);
 
 		add_settings_field(
 			'pinecone_api_key',
 			'Pinecone API Key',
 			array( $this, 'render_text_field' ),
-			'ai-product-finder-settings',
-			'ai_product_finder_api_section',
+			'jessaipf-settings',
+			'jessaipf_api_section',
 			array(
 				'field_name'  => 'pinecone_api_key',
 				'field_type'  => 'password',
@@ -118,8 +118,8 @@ class AI_Product_Finder_Admin_Settings {
 			'openai_api_key',
 			'OpenAI API Key',
 			array( $this, 'render_text_field' ),
-			'ai-product-finder-settings',
-			'ai_product_finder_api_section',
+			'jessaipf-settings',
+			'jessaipf_api_section',
 			array(
 				'field_name'  => 'openai_api_key',
 				'field_type'  => 'password',
@@ -129,34 +129,34 @@ class AI_Product_Finder_Admin_Settings {
 
 		// Suggestion Chips Section.
 		add_settings_section(
-			'ai_product_finder_chips_section',
+			'jessaipf_chips_section',
 			'Suggestion Chips',
 			array( $this, 'render_chips_section' ),
-			'ai-product-finder-settings'
+			'jessaipf-settings'
 		);
 
 		add_settings_field(
 			'suggestion_chips',
 			'Chip Labels',
 			array( $this, 'render_suggestion_chips_field' ),
-			'ai-product-finder-settings',
-			'ai_product_finder_chips_section'
+			'jessaipf-settings',
+			'jessaipf_chips_section'
 		);
 
 		// Index Information Section.
 		add_settings_section(
-			'ai_product_finder_index_section',
+			'jessaipf_index_section',
 			'Index Information (Read-Only)',
 			array( $this, 'render_index_section' ),
-			'ai-product-finder-settings'
+			'jessaipf-settings'
 		);
 
 		add_settings_field(
 			'active_index_name',
 			'Active Index Name',
 			array( $this, 'render_readonly_field' ),
-			'ai-product-finder-settings',
-			'ai_product_finder_index_section',
+			'jessaipf-settings',
+			'jessaipf_index_section',
 			array(
 				'field_name'  => 'active_index_name',
 				'description' => 'Current active Pinecone index name (auto-generated when you create an index).',
@@ -167,8 +167,8 @@ class AI_Product_Finder_Admin_Settings {
 			'pinecone_index_url',
 			'Pinecone Index URL',
 			array( $this, 'render_readonly_field' ),
-			'ai-product-finder-settings',
-			'ai_product_finder_index_section',
+			'jessaipf-settings',
+			'jessaipf_index_section',
 			array(
 				'field_name'  => 'pinecone_index_url',
 				'description' => 'Complete Pinecone index URL (auto-generated when you create an index).',
@@ -177,18 +177,18 @@ class AI_Product_Finder_Admin_Settings {
 
 		// Catalog Sync Section.
 		add_settings_section(
-			'ai_product_finder_sync_section',
+			'jessaipf_sync_section',
 			'Sync Catalog to Pinecone',
 			array( $this, 'render_sync_section' ),
-			'ai-product-finder-settings'
+			'jessaipf-settings'
 		);
 
 		add_settings_field(
 			'catalog_sync_actions',
 			'Catalog Actions',
 			array( $this, 'render_sync_buttons' ),
-			'ai-product-finder-settings',
-			'ai_product_finder_sync_section'
+			'jessaipf-settings',
+			'jessaipf_sync_section'
 		);
 	}
 
@@ -288,9 +288,9 @@ class AI_Product_Finder_Admin_Settings {
 	public function render_readonly_field( $args ) {
 		// Read from separate options for index info.
 		if ( 'active_index_name' === $args['field_name'] ) {
-			$value = get_option( 'ai_product_finder_active_index_name', '' );
+			$value = get_option( 'jessaipf_active_index_name', '' );
 		} elseif ( 'pinecone_index_url' === $args['field_name'] ) {
-			$value = get_option( 'ai_product_finder_index_url', '' );
+			$value = get_option( 'jessaipf_index_url', '' );
 		} else {
 			$options = get_option( self::OPTION_NAME, array() );
 			$value   = isset( $options[ $args['field_name'] ] ) ? $options[ $args['field_name'] ] : '';
@@ -365,8 +365,8 @@ class AI_Product_Finder_Admin_Settings {
 			<h1>AI Product Finder Settings</h1>
 			<form method="post" action="options.php">
 				<?php
-				settings_fields( 'ai_product_finder_settings_group' );
-				do_settings_sections( 'ai-product-finder-settings' );
+				settings_fields( 'jessaipf_settings_group' );
+				do_settings_sections( 'jessaipf-settings' );
 				submit_button();
 				?>
 			</form>

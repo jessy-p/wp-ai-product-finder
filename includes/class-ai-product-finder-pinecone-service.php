@@ -2,7 +2,7 @@
 /**
  * Pinecone Service Class
  *
- * @package AI_Product_Finder
+ * @package Jess_AI_Product_Finder
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Pinecone Service Class for handling vector operations.
  */
-class AI_Product_Finder_Pinecone_Service {
+class Jessaipf_Pinecone_Service {
 
 	/**
 	 * Pinecone API key.
@@ -32,8 +32,8 @@ class AI_Product_Finder_Pinecone_Service {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->api_key   = AI_Product_Finder_Admin_Settings::get_setting( 'pinecone_api_key' );
-		$this->index_url = get_option( 'ai_product_finder_index_url', '' );
+		$this->api_key   = Jessaipf_Admin_Settings::get_setting( 'pinecone_api_key' );
+		$this->index_url = get_option( 'jessaipf_index_url', '' );
 	}
 
 	/**

@@ -2,7 +2,7 @@
 /**
  * Catalog Processor Class
  *
- * @package AI_Product_Finder
+ * @package Jess_AI_Product_Finder
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Catalog Processor Class for managing WooCommerce product sync to Pinecone.
  */
-class AI_Product_Finder_Catalog_Processor {
+class Jessaipf_Catalog_Processor {
 
 	/**
 	 * Pinecone API key.
@@ -25,7 +25,7 @@ class AI_Product_Finder_Catalog_Processor {
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->pinecone_api_key = AI_Product_Finder_Admin_Settings::get_setting( 'pinecone_api_key' );
+		$this->pinecone_api_key = Jessaipf_Admin_Settings::get_setting( 'pinecone_api_key' );
 	}
 
 	/**
@@ -56,7 +56,7 @@ class AI_Product_Finder_Catalog_Processor {
 	 * @return string Active index name or empty string if not set.
 	 */
 	public function get_active_index_name() {
-		return get_option( 'ai_product_finder_active_index_name', '' );
+		return get_option( 'jessaipf_active_index_name', '' );
 	}
 
 	/**
@@ -67,10 +67,10 @@ class AI_Product_Finder_Catalog_Processor {
 	 */
 	public function set_active_index_info( $index_name, $index_url = '' ) {
 		// Store in separate option to avoid form conflicts.
-		update_option( 'ai_product_finder_active_index_name', $index_name );
+		update_option( 'jessaipf_active_index_name', $index_name );
 
 		if ( '' !== $index_url ) {
-			update_option( 'ai_product_finder_index_url', $index_url );
+			update_option( 'jessaipf_index_url', $index_url );
 		}
 	}
 
@@ -408,7 +408,7 @@ class AI_Product_Finder_Catalog_Processor {
 
 		// Use provided URL or get stored URL.
 		if ( empty( $index_url ) ) {
-			$index_url = get_option( 'ai_product_finder_index_url', '' );
+			$index_url = get_option( 'jessaipf_index_url', '' );
 		}
 
 		if ( empty( $index_url ) ) {
@@ -558,7 +558,7 @@ class AI_Product_Finder_Catalog_Processor {
 
 		// Try to extract index name from stored URL.
 		if ( empty( $index_name ) ) {
-			$index_url = get_option( 'ai_product_finder_index_url', '' );
+			$index_url = get_option( 'jessaipf_index_url', '' );
 			if ( ! empty( $index_url ) ) {
 				// Extract index name from URL like: https://my-store-ai-finder-products-1739031845-abc123.svc.gcp-starter.pinecone.io.
 				$parsed_url = wp_parse_url( $index_url );
