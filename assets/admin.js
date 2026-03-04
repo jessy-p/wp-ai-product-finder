@@ -3,11 +3,11 @@ jQuery(document).ready(function($) {
     // Function to refresh index information fields
     function refreshIndexFields() {
         $.ajax({
-            url: aiProductFinderAjax.ajaxurl,
+            url: jessaipfAjax.ajaxurl,
             type: 'POST',
             data: {
-                action: 'ai_product_finder_get_index_info',
-                nonce: aiProductFinderAjax.nonce
+                action: 'jessaipf_get_index_info',
+                nonce: jessaipfAjax.nonce
             },
             success: function(response) {
                 if (response.success) {
@@ -28,11 +28,11 @@ jQuery(document).ready(function($) {
                .empty().append($('<p>').text('Creating Pinecone index and uploading products...'));
 
         $.ajax({
-            url: aiProductFinderAjax.ajaxurl,
+            url: jessaipfAjax.ajaxurl,
             type: 'POST',
             data: {
-                action: 'ai_product_finder_create_index',
-                nonce: aiProductFinderAjax.nonce
+                action: 'jessaipf_create_index',
+                nonce: jessaipfAjax.nonce
             },
             success: function(response) {
                 button.prop('disabled', false).text('Create Index');
@@ -66,11 +66,11 @@ jQuery(document).ready(function($) {
                .empty().append($('<p>').text('Updating Pinecone index with current products...'));
 
         $.ajax({
-            url: aiProductFinderAjax.ajaxurl,
+            url: jessaipfAjax.ajaxurl,
             type: 'POST',
             data: {
-                action: 'ai_product_finder_update_index',
-                nonce: aiProductFinderAjax.nonce
+                action: 'jessaipf_update_index',
+                nonce: jessaipfAjax.nonce
             },
             success: function(response) {
                 button.prop('disabled', false).text('Update Index');

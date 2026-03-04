@@ -26,7 +26,7 @@ return array(
 		'supports' => array(
 			'html' => false
 		),
-		'textdomain' => 'ai-product-finder',
+		'textdomain' => 'jessyp-ai-product-finder',
 		'editorScript' => 'file:./index.js',
 		'editorStyle' => 'file:./index.css',
 		'style' => 'file:./style-index.css',

@@ -6,7 +6,7 @@
 	"license": "GPL-2.0-or-later",
 	"main": "build/index.js",
 	"files": [
-		"ai-product-finder.php",
+		"jessyp-ai-product-finder.php",
 		"assets/admin.js",
 		"build/",
 		"includes/",

@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				resultsContainer.innerHTML = '<div class="loading-container"><div class="loading-dots"><span></span><span></span><span></span></div></div>';
 				resultsContainer.classList.add('show');
 
-				fetch('/wp-json/ai-product-finder/v1/search', {
+				fetch('/wp-json/jessyp-ai-product-finder/v1/search', {
 					method: 'POST',
 					headers: {
 						'Content-Type': 'application/json',
