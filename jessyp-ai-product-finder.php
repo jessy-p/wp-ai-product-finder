@@ -20,10 +20,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once __DIR__ . '/includes/class-ai-product-finder-pinecone-service.php';
-require_once __DIR__ . '/includes/class-ai-product-finder-openai-service.php';
-require_once __DIR__ . '/includes/class-ai-product-finder-admin-settings.php';
-require_once __DIR__ . '/includes/class-ai-product-finder-catalog-processor.php';
+require_once __DIR__ . '/includes/class-jessaipf-pinecone-service.php';
+require_once __DIR__ . '/includes/class-jessaipf-openai-service.php';
+require_once __DIR__ . '/includes/class-jessaipf-admin-settings.php';
+require_once __DIR__ . '/includes/class-jessaipf-catalog-processor.php';
 
 /**
  * Initialize admin settings if in admin area
