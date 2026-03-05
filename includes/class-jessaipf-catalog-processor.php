@@ -36,7 +36,7 @@ class Jessaipf_Catalog_Processor {
 	 */
 	private function log( $message, $level = 'info' ) {
 		$logger = wc_get_logger();
-		$logger->log( $level, $message, array( 'source' => 'ai-product-finder' ) );
+		$logger->log( $level, $message, array( 'source' => 'jessyp-ai-product-finder' ) );
 	}
 
 	/**
