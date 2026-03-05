@@ -63,7 +63,7 @@ $openai->explain_matches($query, $products);
 * **Block Attributes & Controls** - Editable block title using RichText component.
 
 * **WordPress REST API Integration**
-   - Custom namespace endpoint `POST /wp-json/ai-product-finder/v1/search`.
+   - Custom namespace endpoint `POST /wp-json/jessyp-ai-product-finder/v1/search`.
    - Structured JSON responses with search results and AI explanations.
    - Input validation and WP_Error handling.
 
@@ -72,7 +72,7 @@ $openai->explain_matches($query, $products);
    - Enrich results with up-to-date WooCommerce data such as pricing, images, and URLs.
    - Product results link to the product URL.
 
-* **Service Class Architecture** - Dedicated `AI_Product_Finder_Pinecone_Service` and `AI_Product_Finder_OpenAI_Service` classes to separate external API operations from the core logic.
+* **Service Class Architecture** - Dedicated `Jessaipf_Pinecone_Service` and `Jessaipf_OpenAI_Service` classes to separate external API operations from the core logic.
 
 ## License
 
